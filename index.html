@@ -1,13 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>WavePlay - Browser Based Music Streaming App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify – Music Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
+  <div class="app">
+
+    <!-- ══════════════════════════════════
+       MOBILE TOP BAR (hidden on desktop)
+  ═══════════════════════════════════ -->
+    <div class="mobile-topbar">
+      <div class="mobile-logo">
+        <div class="mobile-logo-icon">
+          <svg viewBox="0 0 24 24" fill="white">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 14.65c-.2.2-.51.27-.78.17-2.13-.99-4.81-1.21-7.97-.66-.31.06-.6-.13-.66-.44-.06-.31.13-.6.44-.66 3.46-.61 6.43-.35 8.81.76.27.13.41.47.27.78-.05.02-.08.04-.11.05zm1.24-2.76c-.25.26-.65.33-.97.14-2.44-1.14-6.16-1.47-9.05-.8-.37.09-.75-.14-.84-.51-.09-.37.14-.75.51-.84 3.3-.75 7.4-.38 10.22.93.32.15.47.55.31.87-.05.07-.12.14-.18.21zm.1-2.88c-2.93-1.32-7.77-1.44-10.57-.8-.44.1-.88-.17-.98-.61-.1-.44.17-.88.61-.98 3.22-.73 8.58-.59 11.97.93.41.19.59.67.41 1.08-.19.41-.67.59-1.08.41-.12-.01-.24-.02-.36-.03z" />
+          </svg>
+        </div>
+        <span class="mobile-logo-text">Spotify</span>
+      </div>
+
+      <!-- Hamburger / menu SVG icon -->
+      <button class="hamburger-btn" id="hamburgerBtn" title="Open menu" aria-label="Open sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════
+       MAIN LAYOUT
+  ═══════════════════════════════════ -->
+    <div class="main-layout">
+      <aside class="sidebar" id="sidebar">
+        <!-- Desktop logo row -->
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 14.65c-.2.2-.51.27-.78.17-2.13-.99-4.81-1.21-7.97-.66-.31.06-.6-.13-.66-.44-.06-.31.13-.6.44-.66 3.46-.61 6.43-.35 8.81.76.27.13.41.47.27.78-.05.02-.08.04-.11.05zm1.24-2.76c-.25.26-.65.33-.97.14-2.44-1.14-6.16-1.47-9.05-.8-.37.09-.75-.14-.84-.51-.09-.37.14-.75.51-.84 3.3-.75 7.4-.38 10.22.93.32.15.47.55.31.87-.05.07-.12.14-.18.21zm.1-2.88c-2.93-1.32-7.77-1.44-10.57-.8-.44.1-.88-.17-.98-.61-.1-.44.17-.88.61-.98 3.22-.73 8.58-.59 11.97.93.41.19.59.67.41 1.08-.19.41-.67.59-1.08.41-.12-.01-.24-.02-.36-.03z" />
+            </svg>
+          </div>
+          <span class="logo-text">Spotify</span>
+        </div>
+
+        <!-- Nav links -->
+        <nav class="nav-items">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            Home
+          </div>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Your Library</div>
+
+        <!-- Library track list -->
+        <div class="library-list">
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Abroad Again - Jeremy Blake</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Blue Ribbons - TrackTribe</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Blue Ribbons - TrackTribe</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Blone - TrackTribe</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Colony - TrackTribe</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+          <div class="library-item">
+            <div class="library-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+              </svg>
+            </div>
+            <div class="library-item-info">
+              <div class="library-item-name">Galaxy Finale - Jerem</div>
+              <div class="library-item-sub">Harry</div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ════════════════════════════
+         MAIN CONTENT
+    ════════════════════════════ -->
+      <main class="content">
+        <div class="breadcrumb">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+          </svg>
+          <span>Spavice</span>
+        </div>
+
+        <h1 class="section-title">Spotify Playlists</h1>
+
+        <!-- Row 1 -->
+        <div class="playlist-grid">
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c1">
+              <div class="card-label" style="font-size:.85rem;color:rgba(180,160,255,.9);">✦ moody<br>vibes</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Angry Mood</div>
+              <div class="card-desc">Calm your Anger</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c2">
+              <div class="card-label" style="font-size:.7rem;color:#7ecbff;">⚡ EVAN MCKELL<br>BEST OF POPULAR<br>SONGS
+                VOL. #3</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Bright Songs</div>
+              <div class="card-desc">Bright Songs for you</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c3">
+              <div class="card-label" style="letter-spacing:.15em;font-size:.75rem;color:rgba(200,180,255,.8);">
+                БЬРFGAIEA</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Just Chill</div>
+              <div class="card-desc">Yes, Just Chill</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder" style="background:linear-gradient(135deg,#c49a3c,#f0c060);">
+              <span style="font-size:2.5rem;">🙌</span>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Copyright Songs</div>
+              <div class="card-desc">Cover Songs for you</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c5">
+              <div style="font-size:1.8rem;font-weight:900;color:rgba(255,255,255,.15);">🐴</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Dark Horse</div>
+              <div class="card-desc">Dark Songs for you</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder"
+              style="background:linear-gradient(135deg,#1a1a2e,#16213e);flex-direction:column;gap:4px;">
+              <div style="font-size:.65rem;font-weight:800;letter-spacing:.12em;color:#d4af37;">G.O.A.T.</div>
+              <div style="font-size:.5rem;color:rgba(200,180,100,.7);letter-spacing:.06em;">GREATEST OF ALL TIME</div>
+              <div style="font-size:1.8rem;margin-top:6px;">🎩</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Diljit Dosanjh</div>
+              <div class="card-desc">Diljit Dosanjh hits</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c7" style="flex-direction:column;gap:4px;">
+              <div style="font-size:.9rem;font-weight:800;color:#fff;letter-spacing:.05em;">Hunky</div>
+              <div style="font-size:2rem;">📻</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Go Funky</div>
+              <div class="card-desc">Lets go Funky</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder c8" style="flex-direction:column;gap:2px;">
+              <div style="font-size:1.6rem;">🎤</div>
+              <div style="font-size:.65rem;color:rgba(255,255,255,.5);font-style:italic;">Karan Aujla</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Karan Aujla</div>
+              <div class="card-desc">Karan Aujla for you</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder"
+              style="background:linear-gradient(135deg,#7b1f3a,#e91e63);flex-direction:column;gap:2px;">
+              <div style="font-size:1rem;font-weight:900;color:#fff;text-align:center;line-height:1.1;">LOVE<br>SONGS
+              </div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.7);letter-spacing:.1em;">THE COLLECTION</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">I Love You</div>
+              <div class="card-desc">Love Is in the air</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+          <div class="playlist-card" onclick="selectCard(this)">
+            <div class="card-image-placeholder"
+              style="background:linear-gradient(135deg,#0d2060,#1a4080);flex-direction:column;gap:4px;">
+              <div style="font-size:.55rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.08em;">spotify
+              </div>
+              <div style="font-size:.7rem;font-weight:700;color:#fff;letter-spacing:.06em;">lofi sleep</div>
+              <div style="font-size:1.6rem;margin-top:4px;">🌙</div>
+            </div>
+            <div class="card-body">
+              <div class="card-name">Sleep Songs</div>
+              <div class="card-desc">Seegs for you</div>
+              <div class="play-overlay"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg></div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div><!-- /.main-layout -->
+
+    <!-- ══════════════════════════════════
+       PLAYER BAR
+  ═══════════════════════════════════ -->
+    <div class="player">
+
+      <div class="now-playing">
+        <div class="now-playing-thumb">🎵</div>
+        <div class="now-playing-info">
+          <div class="now-playing-title">Abroad Again - Jeremy Blake <span>- Copy</span></div>
+          <div class="now-playing-artist">Harry</div>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <div class="control-buttons">
+          <!-- skip-first / skip-last hidden on small screens via CSS -->
+          <button class="ctrl-btn" title="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor"
+              fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round">
+              <path
+                d="M8.06492 12.6258C8.31931 13.8374 9.67295 14.7077 12.3802 16.4481C15.3247 18.3411 16.797 19.2876 17.9895 18.9229C18.3934 18.7994 18.7654 18.5823 19.0777 18.2876C20 17.4178 20 15.6118 20 12C20 8.38816 20 6.58224 19.0777 5.71235C18.7654 5.41773 18.3934 5.20057 17.9895 5.07707C16.797 4.71243 15.3247 5.6589 12.3802 7.55186C9.67295 9.29233 8.31931 10.1626 8.06492 11.3742C7.97836 11.7865 7.97836 12.2135 8.06492 12.6258Z" />
+              <path d="M4 4L4 20" />
+            </svg>
+          </button>
+          <button class="ctrl-btn play-btn playing" onclick="togglePlay(this)" title="Play/Pause">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
+          <button class="ctrl-btn" title="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor"
+              fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round">
+              <path
+                d="M15.9351 12.6258C15.6807 13.8374 14.327 14.7077 11.6198 16.4481C8.67528 18.3411 7.20303 19.2876 6.01052 18.9229C5.60662 18.7994 5.23463 18.5823 4.92227 18.2876C4 17.4178 4 15.6118 4 12C4 8.38816 4 6.58224 4.92227 5.71235C5.23463 5.41773 5.60662 5.20057 6.01052 5.07707C7.20304 4.71243 8.67528 5.6589 11.6198 7.55186C14.327 9.29233 15.6807 10.1626 15.9351 11.3742C16.0216 11.7865 16.0216 12.2135 15.9351 12.6258Z" />
+              <path d="M20 5V19" />
+            </svg>
+          </button>
+        </div>
+        <div class="progress-bar">
+          <span class="time-label">01:06</span>
+          <div class="progress-track" onclick="seekProgress(event, this)">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="time-label right">03:38</span>
+        </div>
+      </div>
+
+      <div class="player-right">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="equalizer">
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+          </div>
+        </div>
+
+        <button class="dot-btn" title="More options">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="vol-bar">
+          <button class="ctrl-btn" style="padding:2px;" title="Volume">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+            </svg>
+          </button>
+          <div class="vol-track">
+            <div class="vol-fill"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.player -->
+
+  </div><!-- /.app -->
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+
 </body>
-<script src="script.js"></script>
+
 </html>
