@@ -584,3 +584,7 @@ body::before {
   .content { padding: 10px 10px 0; }
   .section-title { font-size: 1.05rem; }
 }
+
+.remove{
+  display: none;
+}
