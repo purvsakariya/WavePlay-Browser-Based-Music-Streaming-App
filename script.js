@@ -2,23 +2,23 @@ let songs = []
 let currentsong = new Audio()
 let cs = false;
 
-const sidebar   = document.getElementById('sidebar'),
-navItem  = document.querySelector('.nav-item'),
-hamburger = document.getElementById('hamburgerBtn'),
-closeSvg = document.querySelector('.sidebar-close-btn'),
-ul = document.querySelector('.library-list'),
-playsvg = document.querySelector('.playing').firstElementChild,
-pausesvg = document.querySelector('.playing').lastElementChild;
+const sidebar = document.getElementById('sidebar'),
+  navItem = document.querySelector('.nav-item'),
+  hamburger = document.getElementById('hamburgerBtn'),
+  closeSvg = document.querySelector('.sidebar-close-btn'),
+  ul = document.querySelector('.library-list'),
+  playsvg = document.querySelector('.playing').firstElementChild,
+  pausesvg = document.querySelector('.playing').lastElementChild;
 
-async function getsongs(){
+async function getsongs() {
   let a = await fetch('http://127.0.0.1:3000/songs/')
   let respone = await a.text()
   let div = document.createElement('div')
   div.innerHTML = respone
   let as = div.getElementsByTagName('a');
   for (const song of as) {
-    if(song.href.endsWith('.mp3')){
-      songs.push(song.href.split('%5C').at(-1).replace('.mp3',''))
+    if (song.href.endsWith('.mp3')) {
+      songs.push(song.href.split('%5C').at(-1).replace('.mp3', ''))
     }
   }
 
@@ -41,15 +41,15 @@ async function getsongs(){
 
   let songsli = ul.querySelectorAll(".library-item")
   for (const li of songsli) {
-    li.addEventListener("click",e=>{
-      if(e.target.classList == "library-item-name")
-      playMusic(e.target.innerHTML.trim() + ".mp3")
+    li.addEventListener("click", e => {
+      if (e.target.classList == "library-item-name")
+        playMusic(e.target.innerHTML.trim() + ".mp3")
     })
   }
   return songs;
 }
 
-let playMusic = (trak) =>{
+let playMusic = (trak) => {
   currentsong.src = "/songs/" + trak
   currentsong.play()
   document.querySelector(".now-playing-title").innerHTML = trak
@@ -61,70 +61,102 @@ let playMusic = (trak) =>{
 function openSidebar() {
   sidebar.classList.add('open');
   document.body.style.overflow = 'hidden';
-  hamburger.style.display = "none" 
-  closeSvg.style.display = "block" 
+  hamburger.style.display = "none"
+  closeSvg.style.display = "block"
 }
 
 function closeSidebar() {
   sidebar.classList.remove('open');
   document.body.style.overflow = '';
-  hamburger.style.display = "block" 
-  closeSvg.style.display = "none" 
+  hamburger.style.display = "block"
+  closeSvg.style.display = "none"
 }
 
-function pausesong(){
+function pausesong() {
   cs = false
   currentsong.pause()
   playsvg.classList.remove('remove')
   pausesvg.classList.add("remove")
 }
 
-function playsong(){
+function playsong() {
   cs = true
-  if(currentsong.src == ""){
+  if (currentsong.src == "") {
     playMusic(songs[0].trim() + ".mp3")
-  }else{
+  } else {
     currentsong.play()
   }
   playsvg.classList.add('remove')
   pausesvg.classList.remove("remove")
 }
 
-function previoussong(){
-  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3',""))
-  if((index-1) < 0){
+function previoussong() {
+  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3', ""))
+  if ((index - 1) < 0) {
     playMusic(songs.at(-1).trim() + ".mp3")
-  }else{
+  } else {
     playMusic(songs[index - 1] + ".mp3")
   }
 }
 
-function nextsong(){
-  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3',""))
-  if((index+1) >= songs.length){
+function nextsong() {
+  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3', ""))
+  if ((index + 1) >= songs.length) {
     playMusic(songs[0].trim() + ".mp3")
-  }else{
+  } else {
     playMusic(songs[index + 1] + ".mp3")
   }
 }
 
-async function main(){
+async function main() {
 
   await getsongs()
+  document.querySelector('.now-playing-title').innerHTML = songs[0]
   hamburger.addEventListener('click', openSidebar);
   navItem.addEventListener('click', closeSidebar);
   closeSvg.addEventListener('click', closeSidebar);
 
-  document.querySelector('.playing').addEventListener("click",()=>{
-    if(cs == true){
+  document.querySelector('.playing').addEventListener("click", () => {
+    if (cs == true) {
       pausesong();
-    }else{
+    } else {
       playsong();
     }
   });
 
-  next.addEventListener("click",nextsong)
-  previous.addEventListener("click",previoussong)
+  window.addEventListener("keydown", e => {
+    if (e.code == "space") {
+      if (cs == true) {
+        pausesong();
+      } else {
+        playsong();
+      }
+    } else if(e.code == "ArrowRight"){
+      nextsong();
+    } else if(e.code == "ArrowLeft"){
+      previoussong();
+    }
+  })
+
+  next.addEventListener("click", nextsong)
+  previous.addEventListener("click", previoussong)
+  volume.addEventListener("change", e => {
+    currentsong.volume = (e.target.value) / 100
+
+    if (((e.target.value) / 100) > 0.6) {
+      document.querySelector('#fullvolume').classList.remove('remove')
+      document.querySelector('#mediumvolume').classList.add('remove')
+      document.querySelector('#mutevolume').classList.add('remove')
+    } else if (((e.target.value) / 100) == 0) {
+      document.querySelector('#fullvolume').classList.add('remove')
+      document.querySelector('#mediumvolume').classList.add('remove')
+      document.querySelector('#mutevolume').classList.remove('remove')
+    } else {
+      document.querySelector('#fullvolume').classList.add('remove')
+      document.querySelector('#mediumvolume').classList.remove('remove')
+      document.querySelector('#mutevolume').classList.add('remove')
+    }
+  })
 }
 
 main()
