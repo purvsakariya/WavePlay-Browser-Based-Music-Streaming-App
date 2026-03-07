@@ -74,14 +74,18 @@ function closeSidebar() {
 
 function pausesong(){
   cs = false
-    currentsong.pause()
-    playsvg.classList.remove('remove')
-    pausesvg.classList.add("remove")
+  currentsong.pause()
+  playsvg.classList.remove('remove')
+  pausesvg.classList.add("remove")
 }
 
 function playsong(){
   cs = true
-  currentsong.play()
+  if(currentsong.src == ""){
+    playMusic(songs[0].trim() + ".mp3")
+  }else{
+    currentsong.play()
+  }
   playsvg.classList.add('remove')
   pausesvg.classList.remove("remove")
 }
@@ -89,6 +93,7 @@ function playsong(){
 async function main(){
 
   await getsongs()
+  console.log(currentsong.src);
   hamburger.addEventListener('click', openSidebar);
   navItem.addEventListener('click', closeSidebar);
   closeSvg.addEventListener('click', closeSidebar);
