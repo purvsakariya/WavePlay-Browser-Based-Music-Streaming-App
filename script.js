@@ -125,15 +125,13 @@ async function main() {
   });
 
   window.addEventListener("keydown", e => {
-    if (e.code == "space") {
-      if (cs == true) {
-        pausesong();
-      } else {
-        playsong();
-      }
-    } else if(e.code == "ArrowRight"){
+    if (e.key == "s") {
+      pausesong();
+    } else if (e.key == "p") {
+      playsong();
+    } else if (e.code == "ArrowRight") {
       nextsong();
-    } else if(e.code == "ArrowLeft"){
+    } else if (e.code == "ArrowLeft") {
       previoussong();
     }
   })
