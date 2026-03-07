@@ -1,11 +1,14 @@
 let songs = []
 let currentsong = new Audio()
+let cs = false;
 
 const sidebar   = document.getElementById('sidebar'),
 navItem  = document.querySelector('.nav-item'),
 hamburger = document.getElementById('hamburgerBtn'),
 closeSvg = document.querySelector('.sidebar-close-btn'),
-ul = document.querySelector('.library-list');
+ul = document.querySelector('.library-list'),
+playsvg = document.querySelector('.playing').firstElementChild,
+pausesvg = document.querySelector('.playing').lastElementChild;
 
 async function getsongs(){
   let a = await fetch('http://127.0.0.1:3000/songs/')
@@ -47,10 +50,12 @@ async function getsongs(){
 }
 
 let playMusic = (trak) =>{
-  let audio = new Audio("/songs/" + trak)
-  audio.play()
+  currentsong.src = "/songs/" + trak
+  currentsong.play()
   document.querySelector(".now-playing-title").innerHTML = trak
-  
+  cs = true
+  playsvg.classList.add('remove')
+  pausesvg.classList.remove('remove')
 }
 
 function openSidebar() {
@@ -67,13 +72,33 @@ function closeSidebar() {
   closeSvg.style.display = "none" 
 }
 
+function pausesong(){
+  cs = false
+    currentsong.pause()
+    playsvg.classList.remove('remove')
+    pausesvg.classList.add("remove")
+}
+
+function playsong(){
+  cs = true
+  currentsong.play()
+  playsvg.classList.add('remove')
+  pausesvg.classList.remove("remove")
+}
+
 async function main(){
 
   await getsongs()
   hamburger.addEventListener('click', openSidebar);
   navItem.addEventListener('click', closeSidebar);
   closeSvg.addEventListener('click', closeSidebar);
-
+  document.querySelector('.playing').addEventListener("click",()=>{
+    if(cs == true){
+      pausesong();
+    }else{
+      playsong();
+    }
+  });
 }
 
 main()
