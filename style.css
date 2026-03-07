@@ -236,7 +236,7 @@ body::before {
 
 .library-item {
   display: flex; align-items: center; gap: 12px;
-  padding: 9px 14px; border-radius: 8px; cursor: pointer;
+  padding: 9px 10px; border-radius: 8px; cursor: pointer;
   transition: all .18s;
 }
 .library-item:hover { background: rgba(255,255,255,.05); }
