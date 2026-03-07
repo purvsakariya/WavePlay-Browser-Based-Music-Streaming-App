@@ -90,13 +90,22 @@ function playsong(){
   pausesvg.classList.remove("remove")
 }
 
+function nextsong(){
+  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3',""))
+  if((index+1) >= songs.length){
+    playMusic(songs[0].trim() + ".mp3")
+  }else{
+    playMusic(songs[index + 1] + ".mp3")
+  }
+}
+
 async function main(){
 
   await getsongs()
-  console.log(currentsong.src);
   hamburger.addEventListener('click', openSidebar);
   navItem.addEventListener('click', closeSidebar);
   closeSvg.addEventListener('click', closeSidebar);
+
   document.querySelector('.playing').addEventListener("click",()=>{
     if(cs == true){
       pausesong();
@@ -104,6 +113,8 @@ async function main(){
       playsong();
     }
   });
+
+  document.querySelector('#next').addEventListener("click",nextsong)
 }
 
 main()
