@@ -108,7 +108,7 @@ function nextsong() {
   }
 }
 
-function secondsToMinutesSeconds(seconds) {
+function secondsToMinutes(seconds) {
     if (isNaN(seconds) || seconds < 0) {
         return "00:00";
     }
@@ -171,12 +171,22 @@ async function main() {
   });
 
   currentsong.addEventListener("timeupdate",e=>{
-    let currentsongtime = secondsToMinutesSeconds(currentsong.currentTime)
+    let currentsongtime = secondsToMinutes(currentsong.currentTime)
     document.querySelector('#currentTime').innerHTML = currentsongtime
 
-    let totalsongtime = secondsToMinutesSeconds(currentsong.duration)
+    let totalsongtime = secondsToMinutes(currentsong.duration)
     document.querySelector('#totalTime').innerHTML = totalsongtime
+
+    let x = (currentsong.currentTime / currentsong.duration) * 100
+    document.querySelector('#progressFill').style.width = x + "%"
   })
+
+   document.querySelector('.progress-track').addEventListener("click",e=>{
+    let width = (e.offsetX / e.target.getBoundingClientRect().width) * 100
+    currentsong.currentTime = ((currentsong.duration) * width) / 100
+    document.querySelector('#progressFill').style.width = width + "%"
+  })
+
 }
 
 main()
