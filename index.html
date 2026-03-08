@@ -117,7 +117,7 @@
                 </svg></div>
             </div>
           </div>
-          
+
           <div class="playlist-card">
             <div class="card-image-placeholder c8" style="flex-direction:column;gap:2px;">
               <div style="font-size:1.6rem;">🎤</div>
@@ -154,10 +154,17 @@
           <!-- skip-first / skip-last hidden on small screens via CSS -->
           <button id="previous" class="ctrl-btn" title="Previous">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor"
-              fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round">
+              fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
               <path
                 d="M8.06492 12.6258C8.31931 13.8374 9.67295 14.7077 12.3802 16.4481C15.3247 18.3411 16.797 19.2876 17.9895 18.9229C18.3934 18.7994 18.7654 18.5823 19.0777 18.2876C20 17.4178 20 15.6118 20 12C20 8.38816 20 6.58224 19.0777 5.71235C18.7654 5.41773 18.3934 5.20057 17.9895 5.07707C16.797 4.71243 15.3247 5.6589 12.3802 7.55186C9.67295 9.29233 8.31931 10.1626 8.06492 11.3742C7.97836 11.7865 7.97836 12.2135 8.06492 12.6258Z" />
               <path d="M4 4L4 20" />
+            </svg>
+          </button>
+          <button id="previous10s" class="ctrl-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M6 13c0 3.31 2.69 6 6 6s6-2.69 6-6-2.69-6-6-6v4l-5-5 5-5v4c4.42 0 8 3.58 8 8s-3.58 8-8 8-8-3.58-8-8h2z" />
+              <text x="9.5" y="16" font-size="5.5" font-family="sans-serif" font-weight="bold">10</text>
             </svg>
           </button>
           <button class="ctrl-btn play-btn playing">
@@ -169,9 +176,16 @@
               <rect x="14" y="5" width="4" height="14" rx="1" />
             </svg>
           </button>
+          <button id="next10s" class="ctrl-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2z" />
+              <text x="9.5" y="16" font-size="5.5" font-family="sans-serif" font-weight="bold">10</text>
+            </svg>
+          </button>
           <button id="next" class="ctrl-btn" title="Next">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor"
-              fill="white" stroke="white" stroke-width="1.5" stroke-linejoin="round">
+              fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
               <path
                 d="M15.9351 12.6258C15.6807 13.8374 14.327 14.7077 11.6198 16.4481C8.67528 18.3411 7.20303 19.2876 6.01052 18.9229C5.60662 18.7994 5.23463 18.5823 4.92227 18.2876C4 17.4178 4 15.6118 4 12C4 8.38816 4 6.58224 4.92227 5.71235C5.23463 5.41773 5.60662 5.20057 6.01052 5.07707C7.20304 4.71243 8.67528 5.6589 11.6198 7.55186C14.327 9.29233 15.6807 10.1626 15.9351 11.3742C16.0216 11.7865 16.0216 12.2135 15.9351 12.6258Z" />
               <path d="M20 5V19" />
@@ -202,7 +216,8 @@
 
         <div class="vol-bar">
           <button class="ctrl-btn" style="padding:2px;" title="Volume">
-            <svg id="mediumvolume" class="remove" viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;">
+            <svg id="mediumvolume" class="remove" viewBox="0 0 24 24" fill="currentColor"
+              style="width:16px;height:16px;">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
             </svg>
             <svg id="fullvolume" viewBox="0 0 24 24" fill="currentColor">

@@ -108,6 +108,14 @@ function nextsong() {
   }
 }
 
+function previousTenS(){
+  currentsong.currentTime = currentsong.currentTime - 10
+}
+
+function nextTenS(){
+  currentsong.currentTime = currentsong.currentTime + 10
+}
+
 function secondsToMinutes(seconds) {
     if (isNaN(seconds) || seconds < 0) {
         return "00:00";
@@ -152,6 +160,10 @@ async function main() {
 
   next.addEventListener("click", nextsong)
   previous.addEventListener("click", previoussong)
+
+  previous10s.addEventListener("click",previousTenS)
+  next10s.addEventListener("click",nextTenS)
+
   volume.addEventListener("change", e => {
     currentsong.volume = (e.target.value) / 100
 
@@ -186,6 +198,8 @@ async function main() {
     currentsong.currentTime = ((currentsong.duration) * width) / 100
     document.querySelector('#progressFill').style.width = width + "%"
   })
+
+  // window.addEventListener("doubleclick")
 
 }
 
