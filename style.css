@@ -434,7 +434,8 @@ body::before {
 .progress-track:hover { height: 6px; transition: height .1s; }
 
 .progress-fill {
-  width: 32%; height: 100%;
+  /* ================================================================== */
+  width: 10%; height: 100%;
   background: linear-gradient(90deg, var(--accent-green), #4ade80);
   border-radius: 10px; position: relative;
 }

@@ -108,6 +108,20 @@ function nextsong() {
   }
 }
 
+function secondsToMinutesSeconds(seconds) {
+    if (isNaN(seconds) || seconds < 0) {
+        return "00:00";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
+
 async function main() {
 
   await getsongs()
@@ -154,6 +168,14 @@ async function main() {
       document.querySelector('#mediumvolume').classList.remove('remove')
       document.querySelector('#mutevolume').classList.add('remove')
     }
+  });
+
+  currentsong.addEventListener("timeupdate",e=>{
+    let currentsongtime = secondsToMinutesSeconds(currentsong.currentTime)
+    document.querySelector('#currentTime').innerHTML = currentsongtime
+
+    let totalsongtime = secondsToMinutesSeconds(currentsong.duration)
+    document.querySelector('#totalTime').innerHTML = totalsongtime
   })
 }
 
