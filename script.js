@@ -199,8 +199,6 @@ async function main() {
     document.querySelector('#progressFill').style.width = width + "%"
   })
 
-  // window.addEventListener("doubleclick")
-
 }
 
 main()
