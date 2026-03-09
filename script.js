@@ -11,7 +11,7 @@ const sidebar = document.getElementById('sidebar'),
   pausesvg = document.querySelector('.playing').lastElementChild;
 
 async function getsongs() {
-  let songName = await fetch('./song.json/')
+  let songName = await fetch("song.json")
   songs = await songName.json()
 
   ul.innerHTML = ""
