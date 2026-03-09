@@ -11,7 +11,7 @@ const sidebar = document.getElementById('sidebar'),
   pausesvg = document.querySelector('.playing').lastElementChild;
 
 async function getsongs() {
-  let a = await fetch('http://127.0.0.1:3000/songs/')
+  let a = await fetch('./songs/')
   let respone = await a.text()
   let div = document.createElement('div')
   div.innerHTML = respone
@@ -26,15 +26,15 @@ async function getsongs() {
   for (const song of songs) {
     ul.innerHTML += `
       <li class = "library-item">
-      <div class="library-item-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-        </svg>
-     </div>
-     <div class="library-item-info">
+        <div class="library-item-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+          </svg>
+        </div>
+        <div class="library-item-info">
         <div class="library-item-name">${song}</div>
-        <div class="library-item-sub">Purv</div>
-      </div>
+          <div class="library-item-sub">Purv</div>
+        </div>
       </li>
     `
   }
@@ -50,7 +50,7 @@ async function getsongs() {
 }
 
 let playMusic = (trak) => {
-  currentsong.src = "/songs/" + trak
+  currentsong.src = "./songs/" + trak
   currentsong.play()
   document.querySelector(".now-playing-title").innerHTML = trak
   cs = true
@@ -108,26 +108,26 @@ function nextsong() {
   }
 }
 
-function previousTenS(){
+function previousTenS() {
   currentsong.currentTime = currentsong.currentTime - 10
 }
 
-function nextTenS(){
+function nextTenS() {
   currentsong.currentTime = currentsong.currentTime + 10
 }
 
 function secondsToMinutes(seconds) {
-    if (isNaN(seconds) || seconds < 0) {
-        return "00:00";
-    }
+  if (isNaN(seconds) || seconds < 0) {
+    return "00:00";
+  }
 
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
 
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
-    return `${formattedMinutes}:${formattedSeconds}`;
+  return `${formattedMinutes}:${formattedSeconds}`;
 }
 
 async function main() {
@@ -182,7 +182,7 @@ async function main() {
     }
   });
 
-  currentsong.addEventListener("timeupdate",e=>{
+  currentsong.addEventListener("timeupdate", e => {
     let currentsongtime = secondsToMinutes(currentsong.currentTime)
     document.querySelector('#currentTime').innerHTML = currentsongtime
 
@@ -193,7 +193,7 @@ async function main() {
     document.querySelector('#progressFill').style.width = x + "%"
   })
 
-   document.querySelector('.progress-track').addEventListener("click",e=>{
+  document.querySelector('.progress-track').addEventListener("click", e => {
     let width = (e.offsetX / e.target.getBoundingClientRect().width) * 100
     currentsong.currentTime = ((currentsong.duration) * width) / 100
     document.querySelector('#progressFill').style.width = width + "%"
