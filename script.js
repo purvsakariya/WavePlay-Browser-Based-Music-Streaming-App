@@ -11,19 +11,12 @@ const sidebar = document.getElementById('sidebar'),
   pausesvg = document.querySelector('.playing').lastElementChild;
 
 async function getsongs() {
-  let a = await fetch('./songs/')
-  let respone = await a.text()
-  let div = document.createElement('div')
-  div.innerHTML = respone
-  let as = div.getElementsByTagName('a');
-  for (const song of as) {
-    if (song.href.endsWith('.mp3')) {
-      songs.push(song.href.split('%5C').at(-1).replace('.mp3', ''))
-    }
-  }
+  let songName = await fetch('./songs.json/')
+  songs = await songName.json()
 
   ul.innerHTML = ""
-  for (const song of songs) {
+
+  songs.forEach(song => {
     ul.innerHTML += `
       <li class = "library-item">
         <div class="library-item-icon">
@@ -37,22 +30,27 @@ async function getsongs() {
         </div>
       </li>
     `
-  }
-
+  });
+  
   let songsli = ul.querySelectorAll(".library-item")
   for (const li of songsli) {
     li.addEventListener("click", e => {
-      if (e.target.classList == "library-item-name")
-        playMusic(e.target.innerHTML.trim() + ".mp3")
+      li.classList.contains
+      if (e.target.classList.contains("library-item-name")){
+        let songName = li.querySelector(".library-item-name").innerHTML
+        playMusic(songName)
+      }
     })
   }
+  
   return songs;
 }
 
 let playMusic = (trak) => {
   currentsong.src = "./songs/" + trak
   currentsong.play()
-  document.querySelector(".now-playing-title").innerHTML = trak
+  let songTitle = document.querySelector(".now-playing-title")
+  songTitle.innerHTML = trak.replace('.mp3','')
   cs = true
   playsvg.classList.add('remove')
   pausesvg.classList.remove('remove')
@@ -82,7 +80,7 @@ function pausesong() {
 function playsong() {
   cs = true
   if (currentsong.src == "") {
-    playMusic(songs[0].trim() + ".mp3")
+    playMusic(songs[0])
   } else {
     currentsong.play()
   }
@@ -91,20 +89,20 @@ function playsong() {
 }
 
 function previoussong() {
-  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3', ""))
+  let index = songs.indexOf(currentsong.src.split('/').at(-1))
   if ((index - 1) < 0) {
-    playMusic(songs.at(-1).trim() + ".mp3")
+    playMusic(songs.at(-1))
   } else {
-    playMusic(songs[index - 1] + ".mp3")
+    playMusic(songs[index - 1])
   }
 }
 
 function nextsong() {
-  let index = songs.indexOf(currentsong.src.split('/').at(-1).replace('.mp3', ""))
+  let index = songs.indexOf(currentsong.src.split('/').at(-1))
   if ((index + 1) >= songs.length) {
-    playMusic(songs[0].trim() + ".mp3")
+    playMusic(songs[0])
   } else {
-    playMusic(songs[index + 1] + ".mp3")
+    playMusic(songs[index + 1])
   }
 }
 
