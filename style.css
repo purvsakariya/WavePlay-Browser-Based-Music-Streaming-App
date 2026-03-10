@@ -791,8 +791,8 @@ body::before {
 .player-right {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-width: 160px;
+  gap: 10px;
+  min-width: 100px;
   justify-content: flex-end;
 }
 
@@ -950,23 +950,22 @@ body::before {
 
   /* Sidebar → overlay drawer */
   .sidebar {
-    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    transform: translateX(-100%);
     padding-top: 16px;
     box-shadow: 6px 0 32px rgba(0, 0, 0, .55);
     background: #100d24;
   }
 
   .sidebar.open {
+    z-index: 1;
     transform: translateX(0);
   }
 
   /* 4-col grid */
   .playlist-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
@@ -1023,15 +1022,21 @@ body::before {
     margin-bottom: 14px;
   }
 
+  .sidebar{
+    position: absolute;
+    transform: translateX(-100%);
+  }
+
   .player {
+    padding-top: 7px;
     background: transparent;
     width: 100%;
     align-self: center;
     bottom: 0;
     position: absolute;
-    flex-direction: column;
     height: auto;
     gap: 5px;
+    z-index: 2;
   }
 
   .time-label {
@@ -1090,6 +1095,12 @@ body::before {
   }
 }
 
+@media (max-width: 500px){
+  .player-right{
+    display: none;
+  }
+}
+
 /* ════════════════════════════════════════
    MEDIA — SMALL MOBILE  (≤ 400px)
 ════════════════════════════════════════ */
@@ -1109,6 +1120,10 @@ body::before {
 
   .card-image-placeholder{
     height: auto;
+  }
+
+  .player{
+    flex-direction: column;
   }
 }
 
