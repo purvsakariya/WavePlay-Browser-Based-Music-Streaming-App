@@ -19,15 +19,16 @@ async function getsongs() {
   songs.forEach(song => {
     ul.innerHTML += `
       <li class = "library-item">
-        <div class="library-item-icon">
+        <span class="library-item-icon">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
           </svg>
-        </div>
-        <div class="library-item-info">
-        <div class="library-item-name">${song}</div>
-          <div class="library-item-sub">Purv</div>
-        </div>
+        </span>
+        <span class="library-item-info">
+          <div class="library-item-name">${song.replace('.mp3','')}</div>
+            <div class="library-item-sub">Purv
+          </div>
+        </span>
       </li>
     `
   });
@@ -38,7 +39,7 @@ async function getsongs() {
       li.classList.contains
       if (e.target.classList.contains("library-item-name")){
         let songName = li.querySelector(".library-item-name").innerHTML
-        playMusic(songName)
+        playMusic(songName+".mp3")
       }
     })
   }
@@ -80,7 +81,7 @@ function pausesong() {
 function playsong() {
   cs = true
   if (currentsong.src == "") {
-    playMusic(songs[0])
+    playMusic(songs[0] + ".mp3")
   } else {
     currentsong.play()
   }
@@ -128,6 +129,26 @@ function secondsToMinutes(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+function searchsong(){
+  let songinput = document.querySelector('#search').value
+  let songNames = document.querySelectorAll('.library-item-name')
+  songNames.forEach(song=>{
+    if(song.innerText.toLowerCase().includes(songinput.toLowerCase())){
+      console.log(song);
+    }else{
+      song.parentNode.parentNode.innerHTML = ""
+    }
+  })
+  document.querySelector('#searchsvg').classList.add('remove')
+  document.querySelector('#searchclosesvg').classList.remove('remove')
+}
+
+async function searchsongclose(){
+  await getsongs()
+  document.querySelector('#searchsvg').classList.remove('remove')
+  document.querySelector('#searchclosesvg').classList.add('remove')
+}
+
 async function main() {
 
   await getsongs()
@@ -135,6 +156,8 @@ async function main() {
   hamburger.addEventListener('click', openSidebar);
   navItem.addEventListener('click', closeSidebar);
   closeSvg.addEventListener('click', closeSidebar);
+  searchsvg.addEventListener('click',searchsong)
+  searchclosesvg.addEventListener('click',searchsongclose)
 
   document.querySelector('.playing').addEventListener("click", () => {
     if (cs == true) {
@@ -145,11 +168,7 @@ async function main() {
   });
 
   window.addEventListener("keydown", e => {
-    if (e.key == "s") {
-      pausesong();
-    } else if (e.key == "p") {
-      playsong();
-    } else if (e.code == "ArrowRight") {
+    if (e.code == "ArrowRight") {
       nextsong();
     } else if (e.code == "ArrowLeft") {
       previoussong();

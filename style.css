@@ -147,6 +147,42 @@ body::before {
   height: 22px;
 }
 
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input{
+  width: 70%;
+  background: none;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  border-radius: 6px;
+  padding: 3px 5px;
+}
+
+.searchbtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  transition: all .18s;
+}
+
+.searchbtn:hover {
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+.searchbtn svg {
+  width: 22px;
+  height: 22px;
+}
+
 /* ════════════════════════════════════════
    OVERLAY BACKDROP  (mobile only)
 ════════════════════════════════════════ */
@@ -345,6 +381,7 @@ body::before {
 
 .library-item {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 12px;
   padding: 9px 10px;
